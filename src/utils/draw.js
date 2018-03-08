@@ -2,9 +2,9 @@
  * Created by louizhai on 17/6/30.
  * description: Use canvas to draw.
  */
-function Draw(canvas, degree, config = {}) {
+function Draw(canvas) {
   if (!(this instanceof Draw)) {
-    return new Draw(canvas, config);
+    return new Draw(canvas);
   }
   if (!canvas) {
     return;
@@ -40,7 +40,6 @@ function Draw(canvas, degree, config = {}) {
   context.strokeStyle = 'black';
   context.lineCap = 'round';
   context.lineJoin = 'round';
-  Object.assign(context, config);
   function clearhuabi () {
     bihua = '';
   }
@@ -53,7 +52,6 @@ function Draw(canvas, degree, config = {}) {
     }
     return left;
   }
-
   function getY(obj) {
     let parObj = obj;
     let top = obj.offsetTop;
