@@ -1,9 +1,12 @@
 <template>
   <div class="canvasBox">
-    <div class="greet" @click="clear">
-      清屏
+    <div class="greet">
+      小画板（手写识别单字）
     </div>
     <canvas ref="canvas" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd" @mousedown="onMouseDown" @mousemove="onMouseMove" @mouseup="onMouseUp"></canvas>
+    <transition name="fade">
+      <div v-show="bihua" class="clear-btn" @click="clear">重写</div>
+    </transition>
     <div class="selectword">
       <div class="word" v-for="(w,i) in words" :key="i" v-text="w"></div>
     </div>
@@ -11,7 +14,6 @@
 </template>
 
 <script>
-import qs from 'qs';
 import axios from 'axios';
 import { debounce } from '../utils/debounce';
 
@@ -162,7 +164,7 @@ export default {
       this.bihua += 's';
     },
     _senddata (bh) {
-      axios.post('/api/one', qs.stringify({bh: this.lg + bh})).then(res => {
+      axios.post('/api/one', {bh: this.lg + bh}).then(res => {
         console.log(res)
         this.words = res.data.split(' ')
       }).catch(e => {
@@ -239,5 +241,18 @@ canvas {
 }
 .word:last-child {
   border-right: 0;
+}
+.clear-btn {
+  position: absolute;
+  bottom: 25px;
+  border: 1px #aaa solid;
+  padding: 5px 10px;
+  margin: 10px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

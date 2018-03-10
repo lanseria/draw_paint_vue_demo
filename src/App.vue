@@ -1,12 +1,16 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <my-canvas/>
   </div>
 </template>
 
 <script>
+import MyCanvas from '@/components/MyCanvas';
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    MyCanvas
+  }
 };
 </script>
 

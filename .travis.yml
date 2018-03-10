@@ -1,0 +1,25 @@
+language: node_js
+
+node_js:
+- 8.9.4
+
+sudo: required
+
+jobs:
+  include:
+    - stage: install_test
+      script:
+        - yarn && yarn lint && yarn build 
+    - stage: deploy
+      addons:
+        ssh_known_hosts: 115.159.27.203
+      script:
+        - openssl aes-256-cbc -K $encrypted_2daa33aa331c_key -iv $encrypted_2daa33aa331c_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
+        - chmod 600 ~/.ssh/id_rsa
+        - echo -e "Host 115.159.27.203\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+        - pwd
+      after_success:
+        - ssh root@115.159.27.203 "cd /var/www/node/draw_paint_vue_demo && git fetch && git pull && yarn && yarn build && cd server && pm2 restart app.js && cd .. ; exit 0"
+
+notifications:
+  email: false
