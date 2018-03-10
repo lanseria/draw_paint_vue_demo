@@ -14,7 +14,7 @@ jobs:
       addons:
         ssh_known_hosts: 115.159.27.203
       script:
-        - openssl aes-256-cbc -K $encrypted_39e236d56d04_key -iv $encrypted_39e236d56d04_iv -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+        - openssl aes-256-cbc -K $encrypted_39e236d56d04_key -iv $encrypted_39e236d56d04_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
         - chmod 600 ~/.ssh/id_rsa
         - echo -e "Host 115.159.27.203\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
         - pwd
