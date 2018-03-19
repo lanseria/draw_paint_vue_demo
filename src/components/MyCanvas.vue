@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { getWords } from '../utils/getWords'
 import { debounce } from '../utils/debounce';
 
 export default {
@@ -164,9 +164,12 @@ export default {
       this.bihua += 's';
     },
     _senddata (bh) {
-      axios.post('/api/one', {bh: this.lg + bh}).then(res => {
+      getWords({bh: this.lg + bh}).then(res => {
         console.log(res)
-        this.words = res.data.split(' ')
+        if (res.success) {
+          this.words = res.data.words.split(' ')
+        }
+        // this.words = res.data.split(' ')
       }).catch(e => {
         console.log(e)
       })
