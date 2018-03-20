@@ -1,5 +1,5 @@
-# draw-webpack
-
+# draw-paint-vue-demo
+[![travis_build](https://travis-ci.org/Lanseria/draw_paint_vue_demo.svg?branch=master "travis_build")](https://travis-ci.org/Lanseria/draw_paint_vue_demo)
 > A Vue.js project
 
 ## Build Setup
